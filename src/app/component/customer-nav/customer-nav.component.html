@@ -1,0 +1,9 @@
+
+<mat-toolbar>
+    <span>E-Commerce customer</span>
+</mat-toolbar>
+
+<button mat-button [routerLink]="['/product']">Product</button>
+<button mat-button [routerLink]="['/cart']">Cart</button>
+<button mat-button [routerLink]="['/userinfo']">Profile</button>
+<button style="float: right;" mat-button (click)="logout()">logout</button>

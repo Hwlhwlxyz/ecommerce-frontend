@@ -1,0 +1,29 @@
+<app-customer-nav *ngIf="isCustomer()"></app-customer-nav>
+<app-salesperson-nav *ngIf="isSalesperson()"></app-salesperson-nav>
+<p>userinfo works!</p>
+
+<div class="example-form">
+    
+    <mat-form-field class="example-full-width">   
+      <input matInput placeholder="customerid" [(ngModel)]="userinfo.customerid">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="income" [(ngModel)]="userinfo.income">
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="marriage_status" [(ngModel)]="userinfo.marriage_status">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="gender" [(ngModel)]="userinfo.gender">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="age" [(ngModel)]="userinfo.age">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="update()" >update</button>
+
+  </div>

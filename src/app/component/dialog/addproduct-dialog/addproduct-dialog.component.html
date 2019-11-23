@@ -1,0 +1,24 @@
+<p>addproduct-dialog works!</p>
+
+<h1 mat-dialog-title> {{action}} Product </h1>
+<div mat-dialog-content>
+
+    <mat-form-field>
+        <input matInput placeholder="name" [(ngModel)]="productinfo.pname" name="name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="price" [(ngModel)]="productinfo.price" type="number" name="price" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="inventory amount" [(ngModel)]="productinfo.inventory_amount" type="number" name="inventory_amount" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="kind" [(ngModel)]="productinfo.kind" name="kind" required>
+    </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">cancel</button>
+  <button mat-button color="primary" cdkFocusInitial (click)="submit()">submit</button>
+</div>

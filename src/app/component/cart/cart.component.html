@@ -1,0 +1,28 @@
+
+<app-customer-nav></app-customer-nav>
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>
+    <td mat-cell *matCellDef="let product"> {{product.pname}} </td>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> price </th>
+    <td mat-cell *matCellDef="let product"> {{product.price}} </td>
+  </ng-container>
+  <ng-container matColumnDef="select_amount">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> select amount </th>
+    <td mat-cell *matCellDef="let product"> {{product.select_amount}} </td>
+  </ng-container>
+
+
+
+
+
+  
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+ 
+</table>
+<mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+<button mat-raised-button color="primary" (click)="submit()">submit</button>

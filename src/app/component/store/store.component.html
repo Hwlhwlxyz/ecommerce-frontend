@@ -1,0 +1,35 @@
+<app-salesperson-nav></app-salesperson-nav>
+
+<table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> address </th>
+      <td mat-cell *matCellDef="let store"> {{store.address}} </td>
+    </ng-container>
+    <ng-container matColumnDef="smanager">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> manager </th>
+      <td mat-cell *matCellDef="let store"> {{store.smanager}} </td>
+    </ng-container>
+    <ng-container matColumnDef="snum">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> price </th>
+      <td mat-cell *matCellDef="let store"> {{store.snum}} </td>
+    </ng-container>
+    <ng-container matColumnDef="region">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> region </th>
+      <td mat-cell *matCellDef="let store"> {{store.rid}} </td>
+    </ng-container>
+  
+  
+
+  
+    <ng-container matColumnDef="edit_button">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let store">
+        <button mat-raised-button color="primary" (click)="open_addstoredialog_edit(store)">edit</button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+  
+  
+  </table>
