@@ -38,3 +38,51 @@
   
   
   </table>
+
+
+
+
+
+<p>What are the top product categories</p>
+
+<table border="1">
+  <thead>
+  <tr>
+   <th *ngFor="let column of columnHeaders_topcategories">
+          {{column}}
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+     <tr  *ngFor="let item of categoriesamount">
+     <td *ngFor="let column of columnHeaders_topcategories" title="{{item[column]}}">
+          <div>{{item[column]}}</div>
+
+        </td>
+     </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<p>What are the aggregate sales and profit of the products.</p>
+
+<table border="1">
+  <thead>
+  <tr>
+   <th *ngFor="let column of columnHeaders_getSalesAndProfitOfProducts">
+          {{column}}
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+     <tr  *ngFor="let item of salesandprofitlist">
+     <td *ngFor="let column of columnHeaders_getSalesAndProfitOfProducts" title="{{item[column]}}">
+          <div>{{item[column]}}</div>
+
+        </td>
+     </tr>
+  </tbody>
+</table>

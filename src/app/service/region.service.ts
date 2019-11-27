@@ -12,4 +12,8 @@ export class RegionService {
   getRegions(){
     return this.http.get(this.url+"/region")
   }
+
+  getRegionSales(){
+    return this.http.get(this.url+"/region/sales")
+  }
 }

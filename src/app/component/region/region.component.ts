@@ -18,11 +18,14 @@ export class RegionComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
-  
+  columnHeaders_regionsales=['rname', 'salesamount']
+  columnHeaders_regionsales_name=['region name', 'sales amount']
+  regionsales=[]
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.getAllRegions()
+    this.getAllRegions();
+    this.getRegionSales();
   }
 
   getAllRegions(){
@@ -31,5 +34,15 @@ export class RegionComponent implements OnInit {
       this.dataSource.data=response
       console.log(response)
     });
+  }
+
+
+
+  getRegionSales(){
+    this.regionService.getRegionSales().subscribe((response:[])=>
+    {
+      this.regionsales=response
+      console.log(response)
+    })
   }
 }

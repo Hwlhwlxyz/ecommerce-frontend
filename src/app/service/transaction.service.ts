@@ -64,5 +64,17 @@ export class TransactionService {
   getTransactionByCustomerid(){
 
   }
+
+
+  //What are the aggregate sales and profit of the products.
+  getSalesAndProfitOfProducts(){
+    return this.http.get(this.url+"/transaction/salesandprofit")
+  }
+
+  getTopCategories(){
+    return this.http.get(this.url+"/classification/topcategories")
+  }
+
+
  
 }
