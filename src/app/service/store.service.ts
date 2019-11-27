@@ -1,3 +1,6 @@
+import { HttpClient } from '@angular/common/http';
+
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,9 +8,9 @@ import { Injectable } from '@angular/core';
 })
 export class StoreService {
 
-  constructor() { }
-
+  constructor(private http: HttpClient) { }
+  url = environment.apiBaseURL
   getStores(){
-    return [{sid:1, address:"address1", smanager:"m", snum:1, region:"region"}];
+    return this.http.get(this.url+"/store")
   }
 }

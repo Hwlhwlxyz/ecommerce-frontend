@@ -5,25 +5,87 @@
 <div class="example-form">
     
     <mat-form-field class="example-full-width">   
-      <input matInput placeholder="customerid" [(ngModel)]="userinfo.customerid">
+      <input matInput placeholder="customerid" [(ngModel)]="userinfo.cid">
     </mat-form-field>
   
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="income" [(ngModel)]="userinfo.income">
+        <input matInput placeholder="name" [(ngModel)]="userinfo.cname">
       </mat-form-field>
   
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="marriage_status" [(ngModel)]="userinfo.marriage_status">
+        <input matInput placeholder="password" [(ngModel)]="userinfo.password">
+      </mat-form-field>
+  
+
+
+      <button mat-raised-button color="primary" (click)="update_customeraccountinfo()" >update account info</button>
+
+  </div>
+
+
+  <div *ngIf="isCustomerHome()" class="example-form">
+    
+    <mat-form-field class="example-full-width">   
+      <input matInput placeholder="customerid" [(ngModel)]="homeinfo.income">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="marriage_status" [(ngModel)]="homeinfo.marriage_status">
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="gender" [(ngModel)]="homeinfo.gender">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="gender" [(ngModel)]="userinfo.gender">
+        <input matInput placeholder="age" [(ngModel)]="homeinfo.age">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="age" [(ngModel)]="userinfo.age">
+        <input matInput placeholder="income" [(ngModel)]="homeinfo.income">
       </mat-form-field>
 
-      <button mat-raised-button color="primary" (click)="update()" >update</button>
+      <button mat-raised-button color="primary" (click)="update_homeorbusinessinfo()" >update home info</button>
+
+  </div>
+
+
+  <div *ngIf="isCustomerBusiness()" class="example-form">
+    
+    <mat-form-field class="example-full-width">   
+      <input matInput placeholder="business_category" [(ngModel)]="businessinfo.business_category">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="comp_gross_annual_income" [(ngModel)]="businessinfo.comp_gross_annual_income">
+      </mat-form-field>
+  
+
+      <button mat-raised-button color="primary" (click)="update_homeorbusinessinfo()" >update business info</button>
+
+  </div>
+
+
+  <div class="example-form">
+    
+    <mat-form-field class="example-full-width">   
+      <input matInput placeholder="city" [(ngModel)]="addressinfo.city">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="state" [(ngModel)]="addressinfo.state">
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="street" [(ngModel)]="addressinfo.street">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="zcode" [(ngModel)]="addressinfo.zcode">
+      </mat-form-field>
+
+
+
+      <button mat-raised-button color="primary" (click)="update_addressinfo()" >update address info</button>
 
   </div>

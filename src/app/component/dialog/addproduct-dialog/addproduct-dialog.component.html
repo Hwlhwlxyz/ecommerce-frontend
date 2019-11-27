@@ -13,9 +13,26 @@
     <mat-form-field>
         <input matInput placeholder="inventory amount" [(ngModel)]="productinfo.inventory_amount" type="number" name="inventory_amount" required>
     </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="kind" [(ngModel)]="productinfo.kind" name="kind" required>
-    </mat-form-field>
+
+
+    <mat-chip-list #chipList aria-label="kinds selection">
+        <mat-chip *ngFor="let kind of kinds" [selectable]="selectable"
+                 [removable]="removable" (removed)="remove(kind)">
+          {{kind}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="New kind..."
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+               <button mat-button color="primary">
+               <i align="left" class="material-icons"  (matChipInputTokenEnd)="add($event)">
+                add_circle_outline
+                </i>
+            </button>
+      </mat-chip-list>
+
 
 </div>
 <div mat-dialog-actions>

@@ -1,8 +1,8 @@
 <app-salesperson-nav></app-salesperson-nav>
 <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="onum">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> order number </th>
-      <td mat-cell *matCellDef="let transaction"> {{transaction.onum}} </td>
+    <ng-container matColumnDef="tid">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> transcraption number </th>
+      <td mat-cell *matCellDef="let transaction"> {{transaction.tid}} </td>
     </ng-container>
     <ng-container matColumnDef="cid">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> customer id </th>
@@ -17,8 +17,8 @@
       <td mat-cell *matCellDef="let transaction"> {{transaction.amount}} </td>
     </ng-container>
     <ng-container matColumnDef="sname">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> salesperson name </th>
-        <td mat-cell *matCellDef="let transaction"> {{transaction.sname}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> salesperson id </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.sid}} </td>
       </ng-container>
       <ng-container matColumnDef="createdate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> create date </th>

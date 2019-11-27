@@ -25,4 +25,19 @@
  
 </table>
 <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
-<button mat-raised-button color="primary" (click)="submit()">submit</button>
+
+<mat-form-field>
+
+
+<mat-label>Select Saelsperson</mat-label>
+<mat-select [(ngModel)]="selectedSalespersonId" name="saleperson" required>
+  <mat-option *ngFor="let salesperson of salespersons" [value]="salesperson.sid" >
+    id: {{salesperson.sid}}  name: {{salesperson.sname}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+<p> Selected Salesperson: {{selectedSalespersonId}} </p>
+<br>
+<button [disabled]="emptyornosalesperson()" mat-raised-button color="primary" (click)="transactionlist_submit()">submit</button>
+
+<button mat-raised-button color="primary" (click)="clearCart()">clear cart</button>

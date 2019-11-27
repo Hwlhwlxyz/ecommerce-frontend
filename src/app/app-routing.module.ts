@@ -1,3 +1,4 @@
+import { SalespersonUserinfoComponent } from './component/salesperson-userinfo/salesperson-userinfo.component';
 import { RegionComponent } from './component/region/region.component';
 import { StoreComponent } from './component/store/store.component';
 import { TransactionComponent } from './component/transaction/transaction.component';
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path:'salesperson/product', component: SalespersonProductComponent},
   { path:'salesperson/transaction', component: TransactionComponent},
   { path:'salesperson/store', component: StoreComponent},
-  { path:'salesperson/region', component: RegionComponent}
+  { path:'salesperson/region', component: RegionComponent},
+  { path:'salesperson/userinfo', component: SalespersonUserinfoComponent},
 ];
 
 @NgModule({

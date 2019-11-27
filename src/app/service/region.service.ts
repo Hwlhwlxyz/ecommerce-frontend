@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,9 +7,9 @@ import { Injectable } from '@angular/core';
 })
 export class RegionService {
 
-  constructor() { }
-
+  constructor(private http:HttpClient) { }
+  url = environment.apiBaseURL
   getRegions(){
-    return [{rid:1, rname:"regionname", rmanager:"manager"}];
+    return this.http.get(this.url+"/region")
   }
 }

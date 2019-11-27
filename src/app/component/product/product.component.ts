@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit {
 
 
   columnsToDisplay = ['name', 'kind','price', 'amount', 'select_amount', 'add_button'];
-  dataSource = new MatTableDataSource < any > ();
+  dataSource = new MatTableDataSource<any>();
   @ViewChild(MatPaginator, {
     static: true
   }) paginator: MatPaginator;
@@ -27,16 +27,28 @@ export class ProductComponent implements OnInit {
   }) sort: MatSort;
 
 
-  tempcart = [];
-  kinds = [];
+
+  kinds;
   selected_kind
   search_text
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataSource.data = this.productService.getAllProducts();
-    this.kinds = this.productService.getKinds();
+    this.getKinds();
+    this.getAll();
+  }
+
+  getKinds(){
+    this.productService.getKinds().subscribe(
+      response => {
+        this.kinds = response;
+        console.log(response)
+      },
+      err => {
+        console.log("kinds", err)
+      }
+    )
   }
 
   addToCart(product) {
@@ -45,11 +57,38 @@ export class ProductComponent implements OnInit {
   }
 
   select(){
-    console.log(this.selected_kind)
+    this.getByClassification(this.selected_kind)
   }
 
   search(){
     console.log(this.search_text)
+  }
+
+  getByClassification(kind){
+    this.productService.getProductsByClassification(kind).subscribe(
+      (response:[] )=> {
+        const productslist = response;
+        this.dataSource = new MatTableDataSource<any>(productslist);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      err => {
+        console.log("kinds", err)
+      }
+    )
+  }
+
+  getAll(){
+    this.productService.getAllProducts().subscribe(
+      (response:[] )=> {
+        this.dataSource = new MatTableDataSource<any>(response);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      err => {
+        console.log("kinds", err)
+      }
+    )
   }
 
 }

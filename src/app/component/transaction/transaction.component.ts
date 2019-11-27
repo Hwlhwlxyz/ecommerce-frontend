@@ -12,19 +12,22 @@ export class TransactionComponent implements OnInit {
   constructor(public transactionService: TransactionService) { }
   transactionlist = []
 
-  columnsToDisplay = ['onum',  'cid', 'pid','amount', 'sname', 'createdate'];
+  columnsToDisplay = ['tid',  'cid', 'pid','amount', 'sname', 'createdate'];
   dataSource = new MatTableDataSource < any > ();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   
   ngOnInit() {
-    this.transactionlist = this.transactionService.getAllTransaction();
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataSource.data = this.transactionService.getAllTransaction();
 
-    //{onum:1, amount:1, cid:1, pid:1, sname:1, createDate:''}
+    this.transactionService.getAllTransaction().subscribe((response:[])=>{
+      this.dataSource.data = response;
+    })
+
+    
   }
 
   

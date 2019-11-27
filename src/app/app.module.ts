@@ -58,6 +58,8 @@ import { CustomerNavComponent } from './component/customer-nav/customer-nav.comp
 import { SalespersonNavComponent } from './component/salesperson-nav/salesperson-nav.component';
 import { StoreComponent } from './component/store/store.component';
 import { RegionComponent } from './component/region/region.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SalespersonUserinfoComponent } from './component/salesperson-userinfo/salesperson-userinfo.component';
 
 @NgModule({
   declarations: [
@@ -75,12 +77,14 @@ import { RegionComponent } from './component/region/region.component';
     SalespersonNavComponent,
     StoreComponent,
     RegionComponent,
+    SalespersonUserinfoComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     //angular material
     FormsModule,
     ReactiveFormsModule,

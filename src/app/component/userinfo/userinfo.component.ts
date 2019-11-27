@@ -10,25 +10,88 @@ export class UserinfoComponent implements OnInit {
 
   constructor(public accountService: AccountService) { }
 
-  userinfo
+  userinfo = []
   identity = ''
+  addressinfo = []
+  homeinfo = []
+  businessinfo = []
+
 
   
   ngOnInit() {
-    this.userinfo = this.accountService.getUser(1);
-    this.identity = this.accountService.getIdentity();
+    this.accountService.getCustomer(this.accountService.getLocalCid()).subscribe(
+      (response:[])=>{
+        this.userinfo = response;
+      }
+    )
+    
+    if (this.isCustomerHome()){
+      this.accountService.getHomeinfo(this.accountService.getLocalCid()).subscribe(
+        (response:[])=>{
+          this.homeinfo = response;
+          console.log(response)
+        }
+      )
+    }
+    if (this.isCustomerBusiness()){
+      this.accountService.getHomeinfo(this.accountService.getLocalCid()).subscribe(
+        (response:[])=>{
+          this.businessinfo = response;
+
+        }
+      )
+    }
+
+    this.accountService.getAddress(this.accountService.getLocalCid()).subscribe(
+      (response:[])=>{
+        this.addressinfo = response;
+        console.log('addressinfo',this.addressinfo)
+      }
+      )
+    
+    
   }
 
   isCustomer(){
-    return this.accountService.isCustomer();
+    return  this.accountService.isCustomerHome() || this.accountService.isCustomerBusiness();
+  }
+
+  isCustomerHome(){
+    return this.accountService.isCustomerHome();
+  }
+  isCustomerBusiness(){
+    return this.accountService.isCustomerBusiness();
   }
 
   isSalesperson(){
     return this.accountService.isSalesperson();
   }
 
-  update(){
-    console.log(this.userinfo)
+  update_customeraccountinfo(){
+    this.accountService.updateaccountinfo(this.userinfo).subscribe(response=>
+      {
+        console.log('info:',response)
+      })
   }
+
+  update_homeorbusinessinfo(){
+    console.log(this.userinfo)
+    this.accountService.updateuserinfo(this.homeinfo).subscribe(response=>
+      {
+        console.log('info:',response)
+      })
+  }
+
+  update_addressinfo(){
+    console.log(this.addressinfo)
+    this.accountService.updateaddressinfo(this.addressinfo).subscribe(response=>
+      {
+        console.log('info:',response)
+      })
+  }
+
+
+
+
 
 }

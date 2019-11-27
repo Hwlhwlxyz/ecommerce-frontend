@@ -1,45 +1,48 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() { }
+  constructor( private http: HttpClient) { }
 
+  url = environment.apiBaseURL;
 
   getAllProducts(){
-    return [{pname:"product1", price:12.3, inventory_amount:1, pid:1},
-    {pname:"product1", price:12.3},
-    {pname:"product1", price:1},
-    {pname:"product1", price:1.3},
-    {pname:"product1", price:2.3},
-    {pname:"product1", price:12.3},
-    {pname:"product2", price:12.3},
-  ]
+    return this.http.get(this.url+'/product/all')
   }
 
-  addNweProduct(){
-
+  addNweProduct(product, kinds){
+    return this.http.post(this.url+"/product/add", {
+      product: product,
+      kinds: kinds
+    })
   }
 
-  updateProductInfo(){
-
+  updateProductInfo(product, kinds){
+    return this.http.post(this.url+"/product/edit",{
+      product: product,
+      kinds: kinds
+    })
   }
 
   deleteProduct(){
     
   }
 
-  getClassifications(){
 
-  }
-
-  getProductsByClassification(){
-
+  getProductsByClassification(kind){
+    return this.http.get(this.url+"/product/getbyclassification/"+kind)
   }
 
   getKinds(){
-    return ['k1','k2']
+    return this.http.get(this.url+"/classification")
+  }
+
+  getClassificationByPid(pid){
+    return this.http.get(this.url+"/product/getbypid/"+pid)
   }
 }

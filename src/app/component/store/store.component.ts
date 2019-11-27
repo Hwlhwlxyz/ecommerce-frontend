@@ -22,7 +22,14 @@ export class StoreComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataSource.data = this.storeService.getStores();
+    this.getStores();
+  }
+
+  getStores(){
+    this.storeService.getStores().subscribe((response:[])=>{
+      this.dataSource.data = response;
+      console.log(response)
+    })
   }
 
 }

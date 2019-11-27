@@ -22,7 +22,14 @@ export class RegionComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataSource.data = this.regionService.getRegions();
+    this.getAllRegions()
   }
 
+  getAllRegions(){
+    this.regionService.getRegions().subscribe((response:[])=>
+    {
+      this.dataSource.data=response
+      console.log(response)
+    });
+  }
 }

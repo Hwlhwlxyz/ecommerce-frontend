@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 
 import { AccountService } from 'src/app/service/account.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     console.log(this.username, this.password, this.identity)
+    this.accountService.login(this.username, this.password, this.identity)
   }
 
   openRegisterDialog(){
