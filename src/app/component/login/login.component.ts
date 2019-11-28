@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { AccountService } from 'src/app/service/account.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { AccountService } from 'src/app/service/account.service';
 export class LoginComponent implements OnInit {
 
   constructor(private accountService: AccountService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router:Router) { }
 
   username: string;
   password: string;
@@ -30,7 +32,12 @@ export class LoginComponent implements OnInit {
 
   login(){
     console.log(this.username, this.password, this.identity)
-    this.accountService.login(this.username, this.password, this.identity)
+    if (this.identity==='salesperson'){
+      this.accountService.salespersonlogin(this.username, this.password)
+    }
+    else{
+     this.accountService.login(this.username, this.password, this.identity)
+   }
   }
 
   openRegisterDialog(){

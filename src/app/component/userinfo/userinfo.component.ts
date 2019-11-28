@@ -22,6 +22,7 @@ export class UserinfoComponent implements OnInit {
     this.accountService.getCustomer(this.accountService.getLocalCid()).subscribe(
       (response:[])=>{
         this.userinfo = response;
+        console.log(this.userinfo)
       }
     )
     
@@ -34,10 +35,10 @@ export class UserinfoComponent implements OnInit {
       )
     }
     if (this.isCustomerBusiness()){
-      this.accountService.getHomeinfo(this.accountService.getLocalCid()).subscribe(
+      this.accountService.getBusinessinfo(this.accountService.getLocalCid()).subscribe(
         (response:[])=>{
           this.businessinfo = response;
-
+          console.log(this.businessinfo)
         }
       )
     }
@@ -76,10 +77,18 @@ export class UserinfoComponent implements OnInit {
 
   update_homeorbusinessinfo(){
     console.log(this.userinfo)
-    this.accountService.updateuserinfo(this.homeinfo).subscribe(response=>
-      {
+    if (this.isCustomerHome()){
+      this.accountService.updateuserinfo(this.homeinfo).subscribe(response=>
+        {
+          console.log('info:',response)
+        })
+    }
+    if(this.isCustomerBusiness()){
+      this.accountService.updateuserinfo(this.businessinfo).subscribe(response=>{
         console.log('info:',response)
       })
+    }
+    
   }
 
   update_addressinfo(){

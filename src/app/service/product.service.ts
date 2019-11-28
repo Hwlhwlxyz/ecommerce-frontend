@@ -45,4 +45,8 @@ export class ProductService {
   getClassificationByPid(pid){
     return this.http.get(this.url+"/product/getbypid/"+pid)
   }
+
+  searchProduct(text){
+    return this.http.get(this.url+"/product/"+text)
+  }
 }

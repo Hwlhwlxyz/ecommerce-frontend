@@ -1,4 +1,6 @@
+import { AccountService } from './../../service/account.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-salesperson-nav',
@@ -7,12 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalespersonNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private accountService:AccountService,
+    private router:Router) { }
 
   ngOnInit() {
   }
 
   logout(){
     console.log("logout")
+    this.accountService.logout();
+    this.router.navigateByUrl('/login');
   }
 }

@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { throwMatDialogContentAlreadyAttachedError, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,7 +11,9 @@ import { HttpClient } from '@angular/common/http';
 export class AccountService {
 
   constructor(public localstorage:LocalStorageService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private router:Router,
+    private snackBar: MatSnackBar) { }
 
   @LocalStorage('loginStatus')
   loginStatus: boolean;
@@ -59,22 +62,34 @@ export class AccountService {
 
     if (identity==='customer_home'){
       console.log(this.url+'/customer/home/login', loginData);
-      return this.http.post(this.url+'/customer/home/login', loginData).subscribe(response=>{
-        console.log(response);
+      return this.http.post(this.url+'/customer/home/login', loginData).subscribe(
+        response=>{
+        console.log('response=',response);
         this.localstorage.store('cid', response['cid']);
         this.localstorage.store('identity', identity); 
+        if(response){
+          this.router.navigateByUrl('product');
+        }
+        
+      },
+      err=>{
+        console.log('error',err);
+        let snackBarRef = this.snackBar.open(err['error']['error'], 'cancel');
       });
     }
     if (identity==='customer_business'){
       console.log(this.url+'/customer/business/login', loginData);
-      return this.http.post(this.url+'/customer/home/login', loginData).subscribe(
+      return this.http.post(this.url+'/customer/business/login', loginData).subscribe(
         response=>{
         console.log('response',response);
         this.localstorage.store('cid', response['cid']);
         this.localstorage.store('identity', identity); 
+        this.router.navigateByUrl('product');
+
       },
       err=>{
         console.log('error',err);
+        let snackBarRef = this.snackBar.open(err['error']['error'], 'cancel');
       }
       );
     }
@@ -82,21 +97,18 @@ export class AccountService {
   }
 
   getLocalIdentity(){
-    return 'home';
     this.identity = this.localstorage.retrieve('identity');
     return this.identity;
   }
   getLocalCid(){
-    //return this.localstorage.retrieve('cid');
-    return 1;
+    return this.localstorage.retrieve('cid');
+
   }
 
   isCustomerHome(){
-    return true;
     return this.getLocalIdentity()==='customer_home';
   }
   isCustomerBusiness(){
-    return true;
     return this.getLocalIdentity()==='customer_business';
   }
 
@@ -105,14 +117,16 @@ export class AccountService {
   }
   logout(){
     this.localstorage.clear('identity');
+    this.localstorage.clear();
   }
 
   updateuserinfo(userinfo){
+
     if (this.isCustomerHome()){
-      return this.http.post(this.url+'/customer/update/'+this.getLocalIdentity()+'/'+this.getLocalCid(),userinfo);
+      return this.http.post(this.url+'/customer/update/'+'home'+'/'+this.getLocalCid(),userinfo);
     }
     if(this.isCustomerBusiness()){
-      return this.http.post(this.url+'/customer/update/'+this.getLocalIdentity()+'/'+this.getLocalCid(),userinfo);
+      return this.http.post(this.url+'/customer/update/'+'business'+'/'+this.getLocalCid(),userinfo);
     }
   }
 
@@ -133,10 +147,17 @@ export class AccountService {
   salespersonlogin(username, password){
     let loginData =  {username: username, password: password};
       console.log(this.url +'/salesperson/login', loginData);
-      return this.http.post(this.url+'/salesperson/login', loginData).subscribe(response=> {
+      return this.http.post(this.url+'/salesperson/login', loginData).subscribe(
+        response=> {
         console.log(response);
         this.localstorage.store('sid', response['sid']);
         this.localstorage.store('identity', 'salesperson'); 
+        this.router.navigateByUrl('/salesperson/product')
+      },
+      err=>{
+        console.log('error',err);
+        let snackBarRef = this.snackBar.open(err['error']['error'], 'cancel');
+      
       });
   }
 

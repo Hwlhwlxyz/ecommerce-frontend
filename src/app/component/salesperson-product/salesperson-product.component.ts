@@ -27,7 +27,7 @@ export class SalespersonProductComponent implements OnInit {
 
   kinds 
   selected_kind
-  search_text
+  search_text = ''
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -40,10 +40,24 @@ export class SalespersonProductComponent implements OnInit {
 
   select(){
     console.log(this.selected_kind)
+    this.productService.getProductsByClassification(this.selected_kind).subscribe((response:[])=>{
+      this.dataSource.data = response;
+    })
   }
 
   search(){
     console.log(this.search_text)
+    
+    if (this.search_text.length>0){
+      this.search_text = this.search_text.trim()
+      this.productService.searchProduct(this.search_text).subscribe((response:[])=>{
+        this.dataSource.data = response;
+      })
+    }
+    else{
+      this.getAll();
+    }
+    
   }
 
 

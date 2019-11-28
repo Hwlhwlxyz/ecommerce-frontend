@@ -62,6 +62,17 @@ export class ProductComponent implements OnInit {
 
   search(){
     console.log(this.search_text)
+    
+    if (this.search_text.length>0){
+      this.search_text = this.search_text.trim()
+      this.productService.searchProduct(this.search_text).subscribe((response:[])=>{
+        this.dataSource.data = response;
+      })
+    }
+    else{
+      this.getAll();
+    }
+    
   }
 
   getByClassification(kind){
