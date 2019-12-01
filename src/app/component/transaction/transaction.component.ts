@@ -1,3 +1,4 @@
+import { ProductService } from 'src/app/service/product.service';
 import { TransactionService } from 'src/app/service/transaction.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
@@ -9,7 +10,8 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 })
 export class TransactionComponent implements OnInit {
 
-  constructor(public transactionService: TransactionService) { }
+  constructor(public transactionService: TransactionService,
+    private prodcutService: ProductService) { }
   transactionlist = []
   
   columnsToDisplay = ['tid',  'cid', 'pid','amount', 'sname', 'createdate'];
@@ -22,13 +24,15 @@ export class TransactionComponent implements OnInit {
   categoriesamount = []
   categorytopamoint = 0
 
+    products=[]
 
-
+    selectedProductId
 
   columnHeaders_getSalesAndProfitOfProducts = ['pid', 'sales','profit']
   salesandprofitlist = []
 
-
+  columnHeaders_mostgivenproducts = ['pid', 'cname', 'producttotalamount']
+  mostgivenproducts = []
   ngOnInit() {
 
     this.dataSource.paginator = this.paginator;
@@ -40,6 +44,8 @@ export class TransactionComponent implements OnInit {
 
     this.getTopCategories();
     this.getSalesAndProfit();
+    this.getAllProducts();
+    console.log(this.products)
   }
 
   getTopCategories(){
@@ -56,6 +62,12 @@ export class TransactionComponent implements OnInit {
     })
   }
 
+  getAllProducts(){
+   this.prodcutService.getAllProducts().subscribe((response:[])=>{
+     this.products = response
+   })
+  }
+
   isTopCategory(row){
     console.log(row)
     console.log(row['totalamount'], this.categorytopamoint)
@@ -68,6 +80,20 @@ export class TransactionComponent implements OnInit {
       this.salesandprofitlist = response;
       console.log(this.salesandprofitlist)
     })
+  }
+
+  getmostgivenproducts(){
+    this.transactionService.getBusinessBuyingMostProducts(this.selectedProductId).subscribe((response:[])=>{
+      this.mostgivenproducts = response
+    },
+    err=>{
+      console.log(err);
+      this.mostgivenproducts = [{"pid": 'null', "cname": "null", "producttotalamount": 'no product or no transaction'}]
+    })
+  }
+
+  select(){
+    this.getmostgivenproducts();
   }
 
 }

@@ -76,5 +76,12 @@ export class TransactionService {
   }
 
 
+  //Which  businesses are buying given products the most?
+  getBusinessBuyingMostProducts(productid){
+    console.log(this.url+"/transaction/mostgivenproducts_boughtbyc/"+productid)
+    return this.http.get(this.url+"/transaction/mostgivenproducts_boughtbyc/"+productid)
+  }
+
+
  
 }

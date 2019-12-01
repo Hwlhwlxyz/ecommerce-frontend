@@ -86,3 +86,39 @@
      </tr>
   </tbody>
 </table>
+
+
+
+<p>Which  businesses are buying given products the most?</p>
+
+
+
+<mat-form-field>
+  <mat-label>Select Product</mat-label>
+  <mat-select [(ngModel)]="selectedProductId" name="selectedProductId">
+    <mat-option *ngFor="let product of products"  [value]="product.pid">
+      pid: {{product.pid}}, namd: {{product.pname}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="select()">select</button>
+
+<p>You select: {{selectedProductId}}</p>
+
+<table border="1">
+  <thead>
+  <tr>
+   <th *ngFor="let column of columnHeaders_mostgivenproducts">
+          {{column}}
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+     <tr  *ngFor="let item of mostgivenproducts">
+     <td *ngFor="let column of columnHeaders_mostgivenproducts" title="{{item[column]}}">
+          <div>{{item[column]}}</div>
+
+        </td>
+     </tr>
+  </tbody>
+</table>
